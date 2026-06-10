@@ -16,9 +16,9 @@ from typing import Any
 
 sys.dont_write_bytecode = True
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS_DIR = PROJECT_ROOT / "02_研发产物"
-RESULTS_DIR = PROJECT_ROOT / "03_最终结果"
+PROJECT_ROOT = Path(__file__).resolve().parent
+SCRIPTS_DIR = PROJECT_ROOT
+RESULTS_DIR = PROJECT_ROOT / "output"
 
 SYNC_SCRIPT = SCRIPTS_DIR / "sync_capability_hub.py"
 PROJECT_SCAN_SCRIPT = SCRIPTS_DIR / "scan_project_capabilities.py"

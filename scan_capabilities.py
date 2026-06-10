@@ -28,7 +28,7 @@ except ModuleNotFoundError:  # pragma: no cover
     tomllib = None
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = PROJECT_ROOT / "03_最终结果" / "capabilities.json"
 DEFAULT_SUMMARY = PROJECT_ROOT / "03_最终结果" / "capability-scan-summary.md"
 

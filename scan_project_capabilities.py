@@ -15,8 +15,8 @@ from typing import Any
 
 sys.dont_write_bytecode = True
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-RESULTS_DIR = PROJECT_ROOT / "03_最终结果"
+PROJECT_ROOT = Path(__file__).resolve().parent
+RESULTS_DIR = PROJECT_ROOT / "output"
 PROJECT_CAPABILITIES_DIR = RESULTS_DIR / "project-capabilities"
 
 TEXT_LIMIT = 300_000

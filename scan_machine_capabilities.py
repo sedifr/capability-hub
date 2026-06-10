@@ -19,8 +19,8 @@ from urllib.request import urlopen
 
 sys.dont_write_bytecode = True
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-RESULTS_DIR = PROJECT_ROOT / "03_最终结果"
+PROJECT_ROOT = Path(__file__).resolve().parent
+RESULTS_DIR = PROJECT_ROOT / "output"
 CAPABILITY_INDEX_DIR = RESULTS_DIR / "capability-index"
 SOURCES_PATH = RESULTS_DIR / "capability-sources.json"
 CAPABILITIES_PATH = RESULTS_DIR / "capabilities.json"
