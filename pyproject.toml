@@ -1,0 +1,24 @@
+[project]
+name = "capability-hub"
+version = "0.1.0"
+description = "Agent capability awareness middleware — scan your machine, generate a capability list for AI agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+capability-hub = "capability_hub:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = [
+    "capability_hub",
+    "scan_machine_capabilities",
+    "scan_capabilities",
+    "scan_project_capabilities",
+    "sync_capability_hub",
+]
