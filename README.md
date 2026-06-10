@@ -10,20 +10,24 @@ Just a radar: what tools, models, skills, and services exist on this machine.
 
 ## Why
 
-You installed 100+ AI agent skills. You `pip install`'d rembg, edge-tts, and yt-dlp. You downloaded 5 Ollama models. You set up custom services and environments.
+You installed tools, models, and skills on your machine. **Your AI agent doesn't know they exist.**
 
-**Your AI agent doesn't know about any of them.**
-
-Without Capability Hub, you either:
-- Manually maintain a list in `AGENTS.md`/`CLAUDE.md` (and forget to update it)
-- Hope your AI guesses correctly (it won't)
-- Repeatedly tell each AI session "I have rembg installed"
+Without Capability Hub:
+- You manually update a list in `AGENTS.md` (and forget to update it)
+- Your AI writes 30 lines of code to do something a CLI tool could do in one command
+- You repeat "I have X installed" to every new AI session
 
 With Capability Hub:
 
 ```
-Before:  AI writes 20 lines of pillow code to remove a background
-After:   AI reads the capability list → "Found rembg, using it."
+Before:  AI: "Let me write a script to remove the background from this image..."
+After:   AI reads capability list → "Found a background removal tool, using it."
+
+Before:  AI: "I'll use a Python library to transcribe this audio..."
+After:   AI reads capability list → "Found a local speech-to-text tool, using it."
+
+Before:  AI: "Let me download this video with a generic HTTP library..."
+After:   AI reads capability list → "Found a video downloader, using it."
 ```
 
 ---
@@ -31,10 +35,9 @@ After:   AI reads the capability list → "Found rembg, using it."
 ## How it works
 
 ```
-pip install capability-hub
 capability-hub install
-  └─ Scans your machine: skills, pip, brew, npm, ollama, apps, services
-  └─ Generates output/capability-list.md (~150 items, ~12KB)
+  └─ Scans: skills, pip, brew, npm, ollama, apps, services
+  └─ Generates: output/capability-list.md (~150 items, ~12KB)
   └─ Your AI reads it once per complex task
 ```
 
@@ -50,12 +53,12 @@ Add this line to your AI agent's config (`~/.codex/AGENTS.md`, `~/.claude/CLAUDE
 
 | Source | Examples |
 |--------|---------|
-| AI agent skills | frontend-design, pdf, agent-reach, browser-automation |
-| pip packages (CLI tools only) | rembg, edge-tts, yt-dlp |
-| Homebrew | ffmpeg, ripgrep, ocrmypdf |
-| npm global packages | mcporter |
-| Ollama models | qwen2.5:7b, gemma4:e4b |
-| Desktop apps | Photoshop, DaVinci Resolve |
+| AI agent skills | frontend-design, pdf, code-review, browser-automation, video-downloader |
+| pip packages (CLI tools) | background removal, text-to-speech, video download, OCR |
+| Homebrew | ffmpeg, ripgrep, imagemagick, pngquant |
+| npm global packages | dev tools, automation scripts |
+| Ollama models | Any locally downloaded LLM |
+| Desktop apps | Photoshop, DaVinci Resolve, VS Code |
 | MCP services | headroom, custom endpoints |
 | LaunchAgents | background tasks |
 
@@ -75,7 +78,8 @@ Or from source:
 ```bash
 git clone https://github.com/sedifr/capability-hub
 cd capability-hub
-python3 capability_hub.py install
+pip install .
+capability-hub install
 ```
 
 Output files (in `output/`):
