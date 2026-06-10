@@ -1,68 +1,40 @@
 # Capability Hub
 
-**Agent capability awareness middleware.**  
-Scan your machine → generate a capability list → your AI agent reads it.
+**Your local environment is growing. You can't remember everything you installed. Neither can your AI.**
 
-Not a skill. Not an MCP tool. Not a router.  
-Just a radar: what tools, models, skills, and services exist on this machine.
+Capability Hub scans your machine and generates a single file your AI agent can read — a radar for what's available.
 
----
-
-## Why
-
-You installed tools, models, and skills on your machine. **Your AI agent doesn't know they exist.**
-
-Without Capability Hub:
-- You manually update a list in `AGENTS.md` (and forget to update it)
-- Your AI writes 30 lines of code to do something a CLI tool could do in one command
-- You repeat "I have X installed" to every new AI session
-
-With Capability Hub:
-
-```
-Before:  AI: "Let me write a script to remove the background from this image..."
-After:   AI reads capability list → "Found a background removal tool, using it."
-
-Before:  AI: "I'll use a Python library to transcribe this audio..."
-After:   AI reads capability list → "Found a local speech-to-text tool, using it."
-
-Before:  AI: "Let me download this video with a generic HTTP library..."
-After:   AI reads capability list → "Found a video downloader, using it."
-```
+Not a skill. Not an MCP server. Not a router.
 
 ---
 
-## How it works
+## The problem
 
-```
-capability-hub install
-  └─ Scans: skills, pip, brew, npm, ollama, apps, services
-  └─ Generates: output/capability-list.md (~150 items, ~12KB)
-  └─ Your AI reads it once per complex task
-```
+You've installed CLI tools, Python packages, AI agent skills, Ollama models, and custom services across your machine. Over time:
 
-Add this line to your AI agent's config (`~/.codex/AGENTS.md`, `~/.claude/CLAUDE.md`, `.cursorrules`, or system prompt):
+- You forget what you installed. AI doesn't know it exists. It writes code instead of using your tools.
+- You install the same package twice because you don't remember it's already there.
+- You set up a virtual environment in one project — your other AI sessions can't see it.
+- Your skills have cryptic English names. You know what you want to do but can't remember the name.
 
-```
-执行复杂任务前，先读取本机能力清单：`~/path/to/output/capability-list.md`。使用能力时说「我在本机能力地图找到了 XX」。
-```
+**The information exists on your disk. It's just not connected to your AI.**
 
 ---
 
-## What it scans
+## What it does
 
-| Source | Examples |
-|--------|---------|
-| AI agent skills | frontend-design, pdf, code-review, browser-automation, video-downloader |
-| pip packages (CLI tools) | background removal, text-to-speech, video download, OCR |
-| Homebrew | ffmpeg, ripgrep, imagemagick, pngquant |
-| npm global packages | dev tools, automation scripts |
-| Ollama models | Any locally downloaded LLM |
-| Desktop apps | Photoshop, DaVinci Resolve, VS Code |
-| MCP services | headroom, custom endpoints |
-| LaunchAgents | background tasks |
+```
+capability-hub install    →  scans everything in one pass
+                             →  writes a single file: capability-list.md
+                             →  your AI reads it when it needs to
+```
 
-**Not scanned:** system commands (ls, cd), pip libraries without CLI, system apps (Safari, Mail), temporary scripts.
+| Without Capability Hub | With Capability Hub |
+|------------------------|---------------------|
+| AI doesn't know a CLI tool exists → writes code from scratch | AI scans the list → finds the tool → uses it |
+| Forgot you installed a skill → AI works around it | List shows the skill → AI calls it |
+| Pip install a package → next AI session doesn't know | Package appears in the next scan |
+| Remembering "was that `agent-reach` or `web-search`?" | List tells you |
 
 ---
 
@@ -73,71 +45,52 @@ pip install capability-hub
 capability-hub install
 ```
 
-Or from source:
+Output: `output/capability-list.md` — a flat file your AI reads once per complex task.
 
-```bash
-git clone https://github.com/sedifr/capability-hub
-cd capability-hub
-pip install .
-capability-hub install
-```
+Add this line to your AI agent's config:
 
-Output files (in `output/`):
-- `capability-list.md` — AI reads this (12KB)
-- `agent-bootstrap.md` — Entry instructions for AI
-- `machine-capability-report.md` — Human-readable scan report
+> 执行复杂任务前，先读取能力清单：`output/capability-list.md`。使用能力时说「我在本机能力地图找到了 XX」。
+
+---
+
+## What it scans
+
+Skills, CLI tools, Python packages, Homebrew formulas, npm global packages, Ollama models, MCP services, desktop applications, background tasks.
+
+**Not scanned:** system commands, pip libraries without CLI entry points, temporary scripts, browser data.
 
 ---
 
 ## Commands
 
 ```bash
-capability-hub install              # Full scan + generate map
-capability-hub sync                 # Quick refresh (skips if no changes)
-capability-hub sync --mode full     # Full baseline rescan
-capability-hub status               # Show scan state
+capability-hub install              # Full scan
+capability-hub sync                 # Quick refresh (skips if nothing changed)
+capability-hub sync --mode full     # Full rescan
+capability-hub status               # Current state
 capability-hub doctor               # Health check
-capability-hub snippet              # Print the line to add to agent config
-capability-hub uninstall            # Clean up
+capability-hub snippet              # Print the line to add to your agent config
 ```
 
 ---
 
 ## Design
 
-1. **Scan, don't route.** Capability Hub never tells AI which tool to use. It just says what's available.
-2. **One file, one read.** AI reads the list once per complex task — not every turn.
-3. **Zero maintenance.** No manual classification, no keyword tuning. Install and forget.
+1. **Scan, don't route.** Never tells the AI which tool to pick. Just shows what exists.
+2. **One file, one read per task.** Not injected into every message.
+3. **Zero maintenance.** No categories to tune, no keywords to maintain.
 4. **Agent-agnostic.** Works with Codex, Claude Code, Cursor, or any agent that reads markdown.
-
----
-
-## Architecture
-
-```
-capability-hub install
-  ├── scan_capabilities.py          → Agent skills/plugins/MCP
-  ├── scan_machine_capabilities.py  → CLI, brew, pip, npm, ollama, apps, services
-  └── output/
-       ├── capability-list.md       ← AI reads (🟢 high + 🟡 medium confidence)
-       └── inventory.json           ← Full detail (paths, versions, health)
-```
-
-Confidence tiers:
-- 🟢 **High** — from package managers or manually registered. Use directly.
-- 🟡 **Medium** — found in PATH. Verify before use.
-- 🔴 **Hidden** — temporary scripts, test files, build artifacts. Not shown.
 
 ---
 
 ## What it's not
 
-- ❌ Not a skill router — doesn't force AI to use specific tools
-- ❌ Not an MCP server — doesn't expose tool-calling interfaces
-- ❌ Not a skill manager — doesn't install or update your skills
-- ❌ Not a context compressor — use Headroom for that
+- ❌ Not a skill router
+- ❌ Not an MCP server
+- ❌ Not a skill manager
+- ❌ Not a context compressor
 
-It's a **radar**. It tells AI what's available. AI decides what to use.
+It's a **radar**. It shows your AI what's on this machine. AI decides what to use.
 
 ---
 
