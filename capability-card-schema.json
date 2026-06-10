@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1",
+  "required_fields": [
+    "id",
+    "zh_name",
+    "type",
+    "does",
+    "does_not",
+    "requires",
+    "outputs",
+    "confusable_with",
+    "auto_apply_when",
+    "suggest_only_when",
+    "never_use_when",
+    "risk",
+    "status"
+  ],
+  "field_rules": {
+    "id": "Must match an id in capability-reading-index.json.",
+    "zh_name": "Short Chinese display name.",
+    "type": "One of skill, plugin, mcp, cli, app, proxy, workflow, prompt.",
+    "does": "Array of concrete things this capability is good at.",
+    "does_not": "Array of boundaries. These are used to prevent wrong routing.",
+    "requires": "Array of inputs or preconditions needed before use.",
+    "outputs": "Array of expected outputs.",
+    "confusable_with": "Array of nearby capability ids that often compete with this one.",
+    "auto_apply_when": "Array of high-confidence conditions where use is safe.",
+    "suggest_only_when": "Array of conditions where it should be shown as a candidate but not auto-used.",
+    "never_use_when": "Array of hard negative contexts.",
+    "risk": "One of low, medium, high.",
+    "status": "One of draft, active, deprecated."
+  }
+}

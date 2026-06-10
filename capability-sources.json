@@ -1,0 +1,226 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Capability Hub 的本机能力来源登记表。扫描器只检查这里登记的稳定来源，避免全盘乱扫。",
+  "scan_policy": {
+    "mode": "read_only",
+    "do_not_full_disk_scan": true,
+    "missing_items_are_not_capabilities": true,
+    "unknown_found_items_go_to_inbox": true,
+    "live_status_must_be_verified_at_task_time": true
+  },
+  "sources": [
+    {
+      "id": "runtime_cli",
+      "type": "cli",
+      "category": "runtime",
+      "title": "语言运行环境",
+      "commands": [
+        {
+          "name": "python3",
+          "label": "Python 3",
+          "description": "运行 Python 脚本、处理文件、自动化和数据任务。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "node",
+          "label": "Node.js",
+          "description": "运行 JavaScript、前端工程和 Node 工具。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "npm",
+          "label": "npm",
+          "description": "安装和运行 Node 生态依赖。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "npx",
+          "label": "npx",
+          "description": "临时运行 Node 生态命令。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "cargo",
+          "label": "Cargo",
+          "description": "Rust 项目的构建和包管理。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "rustc",
+          "label": "Rust",
+          "description": "Rust 编译环境。",
+          "version_args": ["--version"]
+        }
+      ]
+    },
+    {
+      "id": "developer_cli",
+      "type": "cli",
+      "category": "developer_tools",
+      "title": "开发与版本控制工具",
+      "commands": [
+        {
+          "name": "git",
+          "label": "Git",
+          "description": "本地版本控制、查看变更和提交历史。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "gh",
+          "label": "GitHub CLI",
+          "description": "查询 GitHub 仓库、PR、issue 和认证状态。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "brew",
+          "label": "Homebrew",
+          "description": "macOS 软件和命令行工具管理。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "codex",
+          "label": "Codex CLI",
+          "description": "Codex 本地命令行入口。",
+          "version_args": ["--version"]
+        }
+      ]
+    },
+    {
+      "id": "agent_runtime_cli",
+      "type": "cli",
+      "category": "agent_runtime_layer",
+      "title": "Agent 运行时增强层",
+      "commands": [
+        {
+          "name": "headroom",
+          "label": "Headroom",
+          "description": "长上下文、长日志和大输出的压缩增强层。",
+          "version_args": ["--version"],
+          "live_check": "http://127.0.0.1:8787/readyz"
+        },
+        {
+          "name": "openclaw",
+          "label": "OpenClaw",
+          "description": "本机 AI coding / agent 工具。",
+          "version_args": ["--version"]
+        },
+        {
+          "name": "opencode",
+          "label": "OpenCode",
+          "description": "本机 AI coding / agent 工具。",
+          "version_args": ["--version"]
+        }
+      ]
+    },
+    {
+      "id": "media_cli",
+      "type": "cli",
+      "category": "media_tools",
+      "title": "多媒体处理工具",
+      "commands": [
+        {
+          "name": "ffmpeg",
+          "label": "ffmpeg",
+          "description": "音视频转码、剪切、合并和媒体处理。",
+          "version_args": ["-version"]
+        },
+        {
+          "name": "ffprobe",
+          "label": "ffprobe",
+          "description": "读取音视频文件信息。",
+          "version_args": ["-version"]
+        }
+      ]
+    },
+    {
+      "id": "desktop_apps",
+      "type": "app",
+      "category": "desktop_apps",
+      "title": "本机 AI 与生产力应用",
+      "apps": [
+        {
+          "name": "Codex",
+          "description": "Codex 桌面应用。"
+        },
+        {
+          "name": "Codex Chrome",
+          "description": "Codex Chrome 控制相关应用。"
+        },
+        {
+          "name": "CodexBar",
+          "description": "Codex 使用量或状态监控应用。"
+        },
+        {
+          "name": "Claude",
+          "description": "Claude 桌面应用。"
+        },
+        {
+          "name": "OpenClaw",
+          "description": "本机 AI coding / agent 应用。"
+        },
+        {
+          "name": "OpenCode",
+          "description": "本机 AI coding / agent 应用。"
+        }
+      ]
+    },
+    {
+      "id": "codex_paths",
+      "type": "path",
+      "category": "codex_environment",
+      "title": "Codex 与技能配置路径",
+      "paths": [
+        {
+          "path": "~/.codex/AGENTS.md",
+          "label": "Codex 全局规则",
+          "description": "Codex 每轮会话的轻量规则入口。"
+        },
+        {
+          "path": "~/.codex/config.toml",
+          "label": "Codex 配置",
+          "description": "Codex 插件、MCP 和运行配置。"
+        },
+        {
+          "path": "~/.codex/skills",
+          "label": "Codex 技能目录",
+          "description": "Codex 本地技能来源之一。"
+        },
+        {
+          "path": "~/.agents/skills",
+          "label": "Agents 技能目录",
+          "description": "其他 agent 共享或兼容的技能来源之一。"
+        },
+        {
+          "path": "~/.skillshub",
+          "label": "Skillshub 技能目录",
+          "description": "用户安装的大量本地技能来源。"
+        }
+      ]
+    },
+    {
+      "id": "workspace_paths",
+      "type": "path",
+      "category": "workspace",
+      "title": "用户 AI 工作区",
+      "paths": []
+    },
+    {
+      "id": "local_services",
+      "type": "service",
+      "category": "live_services",
+      "title": "本机后台服务",
+      "services": [
+        {
+          "name": "Headroom Proxy",
+          "url": "http://127.0.0.1:8787/readyz",
+          "description": "Headroom 本地压缩代理健康检查。"
+        },
+        {
+          "name": "MacBridge",
+          "url": "http://127.0.0.1:8765/health",
+          "description": "本机桥接服务健康检查。"
+        }
+      ]
+    }
+  ]
+}
