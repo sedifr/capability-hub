@@ -210,7 +210,7 @@ FINGERPRINT_DIR = RESULTS_DIR / ".fingerprint"
 
 DEFAULT_SOURCE_REGISTRY = {
     "schema_version": "0.1",
-    "purpose": "Default read-only capability sources. Users can edit 03_最终结果/capability-sources.json after first install.",
+    "purpose": "Default read-only capability sources. Users can edit output/capability-sources.json after first install.",
     "scan_policy": {
         "mode": "read_only",
         "do_not_full_disk_scan": True,
@@ -1452,7 +1452,7 @@ def render_bootstrap(inventory: dict[str, Any], fmt: str = "flat") -> str:
             f"- 完整清单：`{INVENTORY_PATH}`",
             "",
             *extra_lines,
-            f"处理具体项目时，如果需要识别项目脚本、测试、构建、服务或本项目工具，可运行：`python3 {PROJECT_ROOT / '02_研发产物' / 'capability_hub.py'} project-scan --path <项目路径>`。",
+            f"处理具体项目时，如果需要识别项目脚本、测试、构建、服务或本项目工具，可运行：`python3 {PROJECT_ROOT / 'capability_hub.py'} project-scan --path <项目路径>`。",
             "如果你因为本地图选择了某个能力，执行前用一句话说明：我在本机能力地图找到了「能力名」。",
             f"更新时间：`{inventory['generated_at']}`",
             "",
@@ -1470,7 +1470,7 @@ def render_bootstrap(inventory: dict[str, Any], fmt: str = "flat") -> str:
             "",
             "当你认为本机已有工具、技能、模型或服务可能帮助当前任务时，先查看一级能力地图。",
             "简单任务不要查看。需要具体能力时再读对应领域索引；需要路径、版本或健康状态时再读详细清单。",
-            f"处理具体项目时，如果需要识别项目脚本、测试、构建、服务或本项目工具，可运行：`python3 {PROJECT_ROOT / '02_研发产物' / 'capability_hub.py'} project-scan --path <项目路径>`。",
+            f"处理具体项目时，如果需要识别项目脚本、测试、构建、服务或本项目工具，可运行：`python3 {PROJECT_ROOT / 'capability_hub.py'} project-scan --path <项目路径>`。",
             "如果你因为本地图选择了某个能力，执行前用一句话说明：我在本机能力地图找到了「能力名」。",
             f"更新时间：`{inventory['generated_at']}`",
             "",
@@ -1688,7 +1688,7 @@ def render_user_report(inventory: dict[str, Any]) -> str:
         "## ✏️ 如何登记自定义环境",
         "",
         f"编辑 `{SOURCES_PATH}` 中的 `custom_environments` 段，添加你的 venv 或自定义工具路径。",
-        f"添加后运行 `python3 {(PROJECT_ROOT / '02_研发产物' / 'capability_hub.py')} sync` 刷新地图。",
+        f"添加后运行 `python3 {(PROJECT_ROOT / 'capability_hub.py')} sync` 刷新地图。",
         "",
         "---",
         "",

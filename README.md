@@ -47,6 +47,12 @@ capability-hub install
 
 Output: `output/capability-list.md` — a flat file your AI reads once per complex task.
 
+From a source checkout:
+
+```bash
+python3 capability_hub.py install
+```
+
 Add this line to your AI agent's config:
 
 > 执行复杂任务前，先读取能力清单：`output/capability-list.md`。使用能力时说「我在本机能力地图找到了 XX」。
@@ -58,6 +64,8 @@ Add this line to your AI agent's config:
 Skills, CLI tools, Python packages, Homebrew formulas, npm global packages, Ollama models, MCP services, desktop applications, background tasks.
 
 **Not scanned:** system commands, pip libraries without CLI entry points, temporary scripts, browser data.
+
+Generated local scan results are written to `output/` and are ignored by git.
 
 ---
 

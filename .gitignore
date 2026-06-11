@@ -1,5 +1,20 @@
-# Generated outputs
+# Generated local scan outputs
+output/
+03_最终结果/
+
+# Python caches
 *.pyc
 __pycache__/
+
+# Local/editor noise
 .DS_Store
-# output/
+.venv/
+venv/
+
+# Secrets and private local config
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.mobileprovision

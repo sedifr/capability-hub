@@ -29,8 +29,8 @@ except ModuleNotFoundError:  # pragma: no cover
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_OUTPUT = PROJECT_ROOT / "03_最终结果" / "capabilities.json"
-DEFAULT_SUMMARY = PROJECT_ROOT / "03_最终结果" / "capability-scan-summary.md"
+DEFAULT_OUTPUT = PROJECT_ROOT / "output" / "capabilities.json"
+DEFAULT_SUMMARY = PROJECT_ROOT / "output" / "capability-scan-summary.md"
 
 SKILL_ROOTS = [
     Path.home() / ".codex" / "skills",
